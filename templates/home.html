@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% block title %}
+    {% if title %}
+        <title>TechJob - {{ title }}</title>
+    {% else %}
+        <title>TechJob - Home</title>
+    {% endif %}
+{% endblock title %}
+
+{% block link_github %}
+    https://github.com/vuonglv1602/timbus-api
+{% endblock%}
+
+{% block quote %}
+<div class="row mt-5">
+    <div class="col text-center">
+        <h2 class="border-bottom">
+            Let's choose a following great job!
+        </h2>
+    </div>
+</div>
+{% endblock quote %}
+
+{% block content %}
+<div class="card" style="height: 500px;">
+    <div class="card-header bg-dark">
+    </div>
+    <div class="card-body h-80 overflow-auto">
+        {% for job in jobs %}
+            <div class="card mt-3">
+                <div class="card-header">
+                    <a class="text-dark" href="/description/{{ job[0] }}">{{ job[2] }}</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

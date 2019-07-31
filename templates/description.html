@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block title %}
+<title>{{ title }}</title>
+{% endblock title %}
+
+{% block quote %}
+<div class="row mt-5">
+    <div class="col text-center">
+        <h4 class="border-bottom">
+            {{ title }}
+        </h4>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-header text-center bg-dark text-light">
+            Job Description
+        </div>
+        <div id="job_description" class="card-text px-3" style="max-width: 100%;">
+            {{ description }}
+        </div>
+    </div>
+{% endblock content %}
