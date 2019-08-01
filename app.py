@@ -1,6 +1,7 @@
 from flask import Flask, url_for, render_template, Markup
 from sql_query import *
 from misaka import Markdown, HtmlRenderer  # For markdown
+import crawl
 import os
 
 app = Flask(__name__)

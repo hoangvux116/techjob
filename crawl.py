@@ -25,31 +25,33 @@ def jobs(url):
             yield job
         
 
+def generate_database(DATABASE_FILE_NAME):
+    url = "https://api.github.com/repositories/23904274/issues?state=open"
+    # SQL QUERY
+    SQL_FILE = os.path.join(os.path.abspath("."), DATABASE_FILE_NAME)
+    # If file existed, delete
+    if os.path.exists(SQL_FILE):
+        try:
+            os.remove(SQL_FILE)
+        except Exception as e:
+            raise Exception(e)
 
-url = "https://api.github.com/repositories/23904274/issues?state=open"
+    conn = sql.connect(SQL_FILE)
+    cur = conn.cursor()
+    CREATE_TABLE_QUERY = '''CREATE TABLE jobs(
+        id,
+        url,
+        title,
+        description
+    )'''
+    INSERT_QUERY = "INSERT INTO jobs VALUES (?,?,?,?)"
+    cur.execute(CREATE_TABLE_QUERY)
+    for job in jobs(url):
+        job_infor = str(job.get("id")), job.get("html_url"), job.get('title'), job.get('body')
+        cur.execute(INSERT_QUERY, job_infor)
+    conn.commit()
+    conn.close()
+
+
 DATABASE_FILE_NAME = "jobs.db"
-
-# SQL QUERY
-SQL_FILE = os.path.join(os.path.abspath("."), DATABASE_FILE_NAME)
-# If file existed, delete
-if os.path.exists(SQL_FILE):
-    try:
-        os.remove(SQL_FILE)
-    except Exception as e:
-        raise Exception(e)
-
-conn = sql.connect(SQL_FILE)
-cur = conn.cursor()
-CREATE_TABLE_QUERY = '''CREATE TABLE jobs(
-    id,
-    url,
-    title,
-    description
-)'''
-INSERT_QUERY = "INSERT INTO jobs VALUES (?,?,?,?)"
-cur.execute(CREATE_TABLE_QUERY)
-for job in jobs(url):
-    job_infor = str(job.get("id")), job.get("html_url"), job.get('title'), job.get('body')
-    cur.execute(INSERT_QUERY, job_infor)
-conn.commit()
-conn.close()
+generate_database(DATABASE_FILE_NAME)
