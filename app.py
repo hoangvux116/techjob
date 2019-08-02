@@ -1,29 +1,26 @@
 from flask import Flask, url_for, render_template, Markup
-from sql_query import *
 from misaka import Markdown, HtmlRenderer  # For markdown
-import crawl
+from sqllib.select import select_all_job, select_job
 import os
 
 app = Flask(__name__)
-DATABASE_FILE_NAME = "jobs.db"
-
-SQL_FILE = os.path.join(os.path.abspath("."), DATABASE_FILE_NAME)
 
 @app.route("/")
 @app.route("/home")
 def home():
-    data = all_jobs(SQL_FILE)
+    data = select_all_job()
     return render_template("home.html", jobs=data)
 
 
 @app.route("/description/<job_id>")
 def description(job_id):
-    title = job_title(job_id, SQL_FILE)
-    # render markdown to html
+    # SELECT JOB FROM DATABASE
+    job = select_job(job_id)
+    # render descripton markdown to html
     render = HtmlRenderer()
     md = Markdown(render)
-    JD = Markup(md(job_description(job_id, SQL_FILE)))
-    return render_template("description.html",title=title, description=JD)
+    job["description"] = Markup(md(job.get("description")))
+    return render_template("description.html", job=job)
 
 
 if __name__ == '__main__':

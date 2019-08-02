@@ -1,9 +1,10 @@
 import os
 import requests
-import sqlite3 as sql
+from sqllib.create_jobs_table import create_jobs_table
+from sqllib.insert_job import insert_job
 
 
-def jobs(url):
+def jobs():
     def next_page(next_url):
         resp = requests.get(next_url)
         if resp.ok:
@@ -11,6 +12,7 @@ def jobs(url):
         else:
             raise Exception(resp.reason)
 
+    url = "https://api.github.com/repositories/23904274/issues?state=open"
     resp = requests.get(url)
     if resp.ok:
         for job in resp.json():
@@ -25,33 +27,18 @@ def jobs(url):
             yield job
         
 
-def generate_database(DATABASE_FILE_NAME):
-    url = "https://api.github.com/repositories/23904274/issues?state=open"
-    # SQL QUERY
-    SQL_FILE = os.path.join(os.path.abspath("."), DATABASE_FILE_NAME)
-    # If file existed, delete
-    if os.path.exists(SQL_FILE):
-        try:
-            os.remove(SQL_FILE)
-        except Exception as e:
-            raise Exception(e)
-
-    conn = sql.connect(SQL_FILE)
-    cur = conn.cursor()
-    CREATE_TABLE_QUERY = '''CREATE TABLE jobs(
-        id,
-        url,
-        title,
-        description
-    )'''
-    INSERT_QUERY = "INSERT INTO jobs VALUES (?,?,?,?)"
-    cur.execute(CREATE_TABLE_QUERY)
-    for job in jobs(url):
-        job_infor = str(job.get("id")), job.get("html_url"), job.get('title'), job.get('body')
-        cur.execute(INSERT_QUERY, job_infor)
-    conn.commit()
-    conn.close()
+def generate_database():
+    for job in jobs():
+        job_info = str(job.get("id")), job.get('title'), job.get('body')
+        insert_job(job_info)
 
 
-DATABASE_FILE_NAME = "jobs.db"
-generate_database(DATABASE_FILE_NAME)
+def crawl():
+    # Create table jobs
+    create_jobs_table()
+    # Crawl
+    generate_database()
+
+
+if __name__ == "__main__":
+    crawl()

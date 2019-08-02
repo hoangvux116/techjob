@@ -1,13 +1,17 @@
 {% extends "layout.html" %}
 {% block title %}
-<title>{{ title }}</title>
+<title>Techjob - {{ job.get('title') }}</title>
 {% endblock title %}
+
+{% block link_github %}
+    https://github.com/vuonglv1602/techjob
+{% endblock%}
 
 {% block quote %}
 <div class="row mt-5">
-    <div class="col text-center">
+    <div class="col-md text-center">
         <h4 class="border-bottom">
-            {{ title }}
+            {{ job.get('title') }}
         </h4>
     </div>
 </div>
@@ -19,7 +23,7 @@
             Job Description
         </div>
         <div id="job_description" class="card-text px-3" style="max-width: 100%;">
-            {{ description }}
+            {{ job.get('description') }}
         </div>
     </div>
 {% endblock content %}

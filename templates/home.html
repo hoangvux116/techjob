@@ -1,10 +1,6 @@
 {% extends "layout.html" %}
 {% block title %}
-    {% if title %}
-        <title>TechJob - {{ title }}</title>
-    {% else %}
-        <title>TechJob - Home</title>
-    {% endif %}
+    <title>TechJob - Home</title>
 {% endblock title %}
 
 {% block link_github %}
@@ -13,7 +9,7 @@
 
 {% block quote %}
 <div class="row mt-5">
-    <div class="col text-center">
+    <div class="col-md text-center">
         <h2 class="border-bottom">
             Let's choose a following great job!
         </h2>
@@ -29,7 +25,7 @@
         {% for job in jobs %}
             <div class="card mt-3">
                 <div class="card-header">
-                    <a class="text-dark" href="/description/{{ job[0] }}">{{ job[2] }}</a>
+                    <a class="text-dark" href="/description/{{ job.get('id') }}">{{ job.get('title') }}</a>
                 </div>
             </div>
         {% endfor %}
