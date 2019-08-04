@@ -2,6 +2,8 @@ import os
 import requests
 from sqllib.create_jobs_table import create_jobs_table
 from sqllib.insert_job import insert_job
+from datetime import datetime
+from tag import tag
 
 
 def jobs():
@@ -25,11 +27,27 @@ def jobs():
         resp = next_page(next_url)
         for job in resp.json():
             yield job
+
+
+def str_date(str_time):
+    date_time = datetime.strptime(str_time, "%Y-%m-%dT%H:%M:%SZ")
+    date = datetime.strftime(date_time, "%Y-%m-%d")
+    return date
         
 
 def generate_database():
     for job in jobs():
-        job_info = str(job.get("id")), job.get('title'), job.get('body')
+        if tag(job.get("title")):
+            tags = ",".join(tag(job.get("title")))
+        else:
+            tags = None
+        job_info = (str(job.get("id")),
+                    job.get('title'),
+                    job.get('body'),
+                    job.get('user').get("login"),
+                    str_date(job.get('created_at')),
+                    str_date(job.get('updated_at')),
+                    tags)
         insert_job(job_info)
 
 

@@ -2,7 +2,7 @@
 <html>
 <head>
     <link rel="shortcut icon" type="image/png" href="/favicon.ico"/>
-    <link rel="shortcut icon" type="image/png" href="favicon.ico')"/>
+    <link rel="shortcut icon" type="image/png" href="favicon.ico"/>
 	<!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,54 +12,76 @@
 	{% block title %}{% endblock %}
 </head>
 <body>
-	<div class="container">
-		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		  <a class="navbar-brand" href="/">TechJob</a>
-		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-		    <span class="navbar-toggler-icon"></span>
-		  </button>
-		  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-		    <div class="navbar-nav">
-		      <a class="nav-item nav-link active" href="/">Home</a>
-		      <a class="nav-item nav-link" target="_blank" href="{% block link_github %}{% endblock%}">Github.com</a>
-		    </div>
-		  </div>
-		</nav>
-        <!-- end nav -->
-        {% block quote %} {% endblock %}
-        <div class="row mt-3">
-            <div class="col-md mb-3">
-                {% block content %} {% endblock %}
+	<div class="container-fluid bg-dark sticky-top">
+		<div class="container">
+			<nav style="min-height: 50px;" class="navbar navbar-expand-lg navbar-dark bg-dark py-0">
+			  <a class="navbar-brand" href="/">TechJob</a>
+			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+			    <span class="navbar-toggler-icon"></span>
+			  </button>
+			  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+			    <div class="navbar-nav">
+			      <a class="nav-item nav-link active" href="/">Home</a>
+                  <a class="nav-item nav-link" href="http://github.com/vuonglv1602/techjob">View on Github</a>
+                  <a class="nav-item nav-link" href="/tags/hanoi">Jobs in HN</a>
+                  <a class="nav-item nav-link" href="/tags/hochiminhcity">Jobs in HCM</a>
+			    </div>
+			  </div>
+			</nav>
+		</div>
+    </div>
+    {% if num_of_result or keyword %}
+    <div class="container pt-5">
+        <div class="row text-left">
+            <div class="col-12">
+                <h3><span style="color: red;">{% if num_of_result %} {{ num_of_result }} {% endif %}</span> jobs for <span>{% if keyword %} {{ keyword }} {% else %} you {% endif %}</span></h3>
             </div>
-            <div class="col-md-3">
-                <div class="card">
-                    <div class="card-header text-center bg-dark text-light">
-                        About me
+        </div>
+    </div>
+    {% endif %}
+    <div class="container">
+		<div class="row my-3">
+			<div class="col-md-8">
+                {% block content %} {% endblock %}
+                <div class="container">
+                    {% block pagination %} {% endblock %}
+                </div>
+            </div>
+            <!--Slide bar-->
+            <div class="col-md-4">
+                <div class="col-12 sticky-top p-0 my-2" style="top: 50px;">
+                    <div class="col-12 text-center mb-2">
+                        <h4 class="font-weight-normal">Python Spotlight</h4>
                     </div>
-                    <div class="card-body">
-                        <div class="card-text">
-                            i'm vuonglv
+                    <div class="col-12 p-0">
+                        <img src="https://scontent.fhan5-3.fna.fbcdn.net/v/t1.0-9/13872921_1089792014439386_5323481656848708989_n.png?_nc_cat=106&_nc_oc=AQmqSQEwf1x_88ApPCN9hg6-55exbJUpV1gIQk32FdATdy9vvDepchReIOWqvgpNK3o&_nc_ht=scontent.fhan5-3.fna&oh=f796a98c86a7c9bc2c6ce64b0d7245bd&oe=5DDD39E9" alt="Pymi Avatar" class="img-fluid img-thumbnail">
+                    </div>
+                    <div class="col-12 p-0 bg-light">
+                        <div class="col-12 text-center">
+                            <h4 class="font-weight-bold"><a class="text-dark" target="_blank" href="https://www.facebook.com/pyfml"><span>PyMi.vn</span></a></h4>
                         </div>
-                        <div class="card-text navbar">
-                            <ul class="navbar-nav">
-                                <li class="nav-item">
-                                <a class="nav-link" target="_blank" href="http://fb.com/it.vuonglv">Facebook</a>
-                                </li>
-                                <li class="nav-item">
-                                <a class="nav-link" target="_blank" href="https://github.com/vuonglv1602">Github</a>
-                                </li>
-                            </ul>
+                        <div class="col-12 text-muted text-center">
+                            <p>The best Python course in VietNam </br>
+                            <i>This application is a excercise in this course</i></p>
+                        </div>
+                        <div class="col-12 text-center mb-4">
+                            <p class="text-secondary">You want to become to a Python developer?</p>
+                            <button type="button" class="btn btn-primary"><a target="_blank" href="https://pymi.vn/#register" class="text-light">Join with us</a></button>
                         </div>
                     </div>
                 </div>
             </div>
-	    </div>
-		<div class="row mt-3">
-			<div class="col-md bg-dark text-center text-light">
-				@copyright is no-copyright =))))
-			</div>
-		</div>
-	</div>
+        </div>
+    </div>
+	<!--Footer-->
+	<div class="container-fluid bg-dark text-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">@Jobs from <a class="text-light" href="https://github.com/awesome-jobs/vietnam/issues"><span>this link.</span></a></div>
+                    <div class="col-md-6 text-sm-right">Develop by <a class="text-light" href="https://www.facebook.com/IT.vuonglv"><span>vuonglv</span></a></div> 
+                </div>
+            </div>
+        </div>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

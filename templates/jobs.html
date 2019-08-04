@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block title %}
-    <title>TechJob - Home</title>
+    <title>TechJob - Job</title>
 {% endblock title %}
 
 {% block link_github %}
@@ -38,7 +38,7 @@
     <nav aria-label="...">
         <ul class="pagination justify-content-center">
           <li class="page-item {% if current_page <= 1%} disabled {% endif %}">
-            <a class="page-link" href="/jobs?page={{ current_page - 1 }}"><span>Previous</span></a>
+                <a class="page-link" href="/jobs?page={{ current_page - 1 }}"><span>Previous</span></a>
           </li>
           {% if current_page > 0 %}
             {% if current_page + pages_per_slide <= num_of_page + 1 %}

@@ -6,7 +6,11 @@ def create_jobs_table():
     sql = """CREATE TABLE jobs(
         job_id VARCHAR(20) PRIMARY KEY,
         job_title TEXT NOT NULL,
-        job_description TEXT NOT NULL
+        job_description TEXT NOT NULL,
+        publisher TEXT,
+        publish_date DATE,
+        updated_date DATE,
+        tags TEXT
     )"""
     conn = None
     try:
