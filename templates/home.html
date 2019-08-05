@@ -18,10 +18,9 @@
                 <div class="col-sm-6 p-0"><h6>Publisher: <a class="text-muted" href="http://github.com/{{ job.get('publisher') }}">{{ job.get('publisher') }}</a></h6></div>
                 <div class="col-sm-6 p-0">
                     <h6 class="text-sm-right font-italic">Publish date: <span class="text-muted">{{ job.get('publish_date') }}</span></h6>
-                    <h6 class="text-sm-right font-italic">Last update: <span class="text-muted">{{ job.get('updated_date') }}</span></h6>
                 </div>
             </div>
-            <div class="row tag-list inline-block mb-3">
+            <div class="row tag-list inline-block mt-4 mb-2">
                 {% if job.get('tags') %}
                     {% for tag_name in job.get('tags').split(",") %}
                         <a class="tag m-1" href="/tags/{{ tag_name.lower() }}"><span>{{ tag_name }}</span></a>
@@ -41,25 +40,13 @@
             <a class="page-link" href="/jobs?page={{ current_page - 1 }}"><span>Previous</span></a>
           </li>
           {% if current_page > 0 %}
-            {% if current_page + pages_per_slide <= num_of_page + 1 %}
-                {% for page_number in range(current_page, current_page + pages_per_slide) %}
-                    {% if page_number == current_page %}
+            {% for page_number in pagination_range(current_page, num_of_page, num_of_button) %}
+                {% if page_number == current_page %}
                     <li class="page-item active"><a class="page-link" href="/jobs?page={{ page_number }}" >{{ page_number }}</a></li>
-                    {% else %}
+                {% else %}
                     <li class="page-item"><a class="page-link" href="/jobs?page={{ page_number }}" >{{ page_number }}</a></li>
-                    {% endif %}
-                {% endfor %}
-            {% else %}
-                {% for page_number in range(num_of_page - pages_per_slide + 1, num_of_page + 1) %}
-                    {% if page_number >= 1 %}
-                        {% if page_number == current_page %}
-                        <li class="page-item active"><a class="page-link" href="/jobs?page={{ page_number }}" >{{ page_number }}</a></li>
-                        {% else %}
-                        <li class="page-item"><a class="page-link" href="/jobs?page={{ page_number }}" >{{ page_number }}</a></li>
-                        {% endif %}
-                    {% endif %}
-                {% endfor %}
-            {% endif %}
+                {% endif %}
+            {% endfor %}
           {% endif %}
           <li class="page-item {% if current_page >= num_of_page %} disabled {% endif %}">
             <a class="page-link" href="/jobs?page={{ current_page + 1 }}">Next</a>

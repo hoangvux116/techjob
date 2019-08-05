@@ -9,7 +9,6 @@ def create_jobs_table():
         job_description TEXT NOT NULL,
         publisher TEXT,
         publish_date DATE,
-        updated_date DATE,
         tags TEXT
     )"""
     conn = None

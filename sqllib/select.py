@@ -13,13 +13,12 @@ def select_job(job_id):
         cur.execute(sql, (job_id,))
         row = cur.fetchone()
         if row is not None:
-            _id, _title, _description, _publisher, _p_date, _u_date,_tags= row
+            _id, _title, _description, _publisher, _publish_date,_tags= row
             job['id'] = _id
             job['title'] = _title
             job['description'] = _description
             job['publisher'] = _publisher
-            job['publish_date'] = _p_date
-            job['updated_date'] = _u_date
+            job['publish_date'] = _publish_date
             job['tags'] = _tags
 
         conn.commit()
@@ -44,13 +43,12 @@ def select_all_job():
         rows = cur.fetchall()
         for row in rows:
             job = {}
-            _id, _title, _description, _publisher, _p_date, _u_date,_tags = row
+            _id, _title, _description, _publisher, _p_date,_tags = row
             job['id'] = _id
             job['title'] = _title
             job['description'] = _description
             job['publisher'] = _publisher
             job['publish_date'] = _p_date
-            job['updated_date'] = _u_date
             job['tags'] = _tags
             yield job
 
@@ -80,13 +78,12 @@ def select_page(page=1, pagesize=30):
         rows = cur.fetchall()
         for row in rows:
             job = {}
-            _id, _title, _description, _publisher, _p_date, _u_date,_tags, _ = row
+            _id, _title, _description, _publisher, _p_date,_tags, _ = row
             job['id'] = _id
             job['title'] = _title
             job['description'] = _description
             job['publisher'] = _publisher
             job['publish_date'] = _p_date
-            job['updated_date'] = _u_date
             job['tags'] = _tags
             yield job
 
@@ -160,13 +157,12 @@ def select_page_bytag(tag, page=1, pagesize=30):
         rows = cur.fetchall()
         for row in rows:
             job = {}
-            _id, _title, _description, _publisher, _p_date, _u_date,_tags, _ = row
+            _id, _title, _description, _publisher, _p_date,_tags, _ = row
             job['id'] = _id
             job['title'] = _title
             job['description'] = _description
             job['publisher'] = _publisher
             job['publish_date'] = _p_date
-            job['updated_date'] = _u_date
             job['tags'] = _tags
             yield job
 

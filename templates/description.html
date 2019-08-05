@@ -7,19 +7,19 @@
     https://github.com/vuonglv1602/techjob
 {% endblock%}
 
-{% block quote %}
-<div class="row mt-5">
-    <div class="col-md text-center">
-        <h4 class="border-bottom">
-            {{ job.get('title') }}
-        </h4>
+{% block job_description_title %}
+<div class="container pt-5">
+    <div class="row text-left">
+        <div class="col-12 col-md-8">
+            <h3><span>{{ job.get('title') }}</span></h3>
+        </div>
     </div>
 </div>
 {% endblock %}
 
 {% block content %}
     <div class="card">
-        <div class="card-header text-center bg-dark text-light sticky-top", style="top: 50px;">
+        <div class="card-header text-center bg-dark text-light", style="top: 50px;">
             Job Description
         </div>
         <div id="job_description" class="card-text px-3" style="max-width: 100%;">

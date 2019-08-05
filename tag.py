@@ -4,9 +4,9 @@ def tag(job_title):
     if "- hn" in title or "- hanoi" in title or "/hn" in title or "/hanoi" in title:
         result.add("Hanoi".lower())
     if "- hcmc" in title or "hcm" in title or "/hcmc" in title or "/hcm" in title:
-        result.add("HoChiMinhCity".lower())
+        result.add("HoChiMinh".lower())
     if "- saigon" in title or "/saigon" in title:
-        result.add("HoChiMinhCity".lower())
+        result.add("HoChiMinh".lower())
     if "remote" in title:
         result.add("Remote".lower())
     if "- ft" in title or "- full time" in title or "- fulltime" in title:

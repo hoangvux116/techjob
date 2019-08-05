@@ -4,11 +4,14 @@ from sqllib.select import select_page, select_job, num_of_row, num_of_result, se
 import os
 import math
 from tag import tag
+from pagination import pagination_range
 
 app = Flask(__name__)
 app.jinja_env.globals.update(tags=tag)
+app.jinja_env.globals.update(pagination_range=pagination_range)
 PAGESIZE = 20
-PAGE_PER_SLIDE = 5
+NUM_OF_BUTTON_PER_PAGINATION = 5
+
 
 @app.route("/")
 @app.route("/home")
@@ -16,7 +19,7 @@ def home():
     page = 1
     data = select_page(page, PAGESIZE)
     NUM_OF_PAGE = math.ceil(num_of_row() / PAGESIZE)
-    return render_template("home.html",current_page=page, num_of_result=num_of_row(),num_of_page=NUM_OF_PAGE, pages_per_slide=PAGE_PER_SLIDE, jobs=data)
+    return render_template("home.html",current_page=page, num_of_result=num_of_row(),num_of_page=NUM_OF_PAGE, num_of_button=NUM_OF_BUTTON_PER_PAGINATION, jobs=data)
 
 
 @app.route("/description/<job_id>")
@@ -40,7 +43,7 @@ def show_page_job():
     else:
         page = 1
     data = select_page(page, PAGESIZE)
-    return render_template("jobs.html", current_page=page,num_of_result=num_of_row(), num_of_page=NUM_OF_PAGE, pages_per_slide=PAGE_PER_SLIDE, jobs=data)
+    return render_template("jobs.html", current_page=page,num_of_result=num_of_row(), num_of_page=NUM_OF_PAGE, num_of_button=NUM_OF_BUTTON_PER_PAGINATION, jobs=data)
 
 
 @app.route("/tags/<string:tag_name>")
@@ -56,7 +59,7 @@ def show_tag_result(tag_name):
     if NUM_OF_RESULT < 1:
         return render_template('404.html'), 404
     data = select_page_bytag(tag_name, page, PAGESIZE)
-    return render_template("tags.html",keyword=tag_name,num_of_result=NUM_OF_RESULT, current_page=page, num_of_page=NUM_OF_PAGE, pages_per_slide=PAGE_PER_SLIDE, jobs=data)
+    return render_template("tags.html",keyword=tag_name,num_of_result=NUM_OF_RESULT, current_page=page, num_of_page=NUM_OF_PAGE, num_of_button=NUM_OF_BUTTON_PER_PAGINATION, jobs=data)
 
 
 @app.errorhandler(404)

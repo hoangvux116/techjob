@@ -2,8 +2,8 @@ import psycopg2
 from sqllib.config import config
 
 def insert_job(job):
-    sql = """INSERT INTO jobs (job_id, job_title, job_description, publisher, publish_date, updated_date, tags)
-             VALUES(%s, %s, %s, %s, %s, %s, %s)"""
+    sql = """INSERT INTO jobs (job_id, job_title, job_description, publisher, publish_date, tags)
+             VALUES(%s, %s, %s, %s, %s, %s)"""
     conn = None
     try:
         params = config()

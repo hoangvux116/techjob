@@ -46,7 +46,6 @@ def generate_database():
                     job.get('body'),
                     job.get('user').get("login"),
                     str_date(job.get('created_at')),
-                    str_date(job.get('updated_at')),
                     tags)
         insert_job(job_info)
 
