@@ -1,3 +1,4 @@
+APScheduler==3.6.1
 certifi==2019.6.16
 cffi==1.12.3
 chardet==3.0.4
@@ -11,6 +12,9 @@ MarkupSafe==1.1.1
 misaka==2.1.1
 psycopg2==2.8.3
 pycparser==2.19
+pytz==2019.2
 requests==2.22.0
+six==1.12.0
+tzlocal==2.0.0
 urllib3==1.25.3
 Werkzeug==0.15.5
