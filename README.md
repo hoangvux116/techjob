@@ -6,7 +6,7 @@ Basic job site using &lt;flask>
 1. ```git clone https://github.com/vuonglv1602/techjob.git techjob```
 2. ```cd techjob```
 3. ```virtualenv -p python venv```  
-4. ```. /venv/bin/activate```
+4. ```. venv/bin/activate```
 5. ```pip install -r requirements.txt```  
 6. ```python3 crawl.py```  
 7. ```python3 app.py```
